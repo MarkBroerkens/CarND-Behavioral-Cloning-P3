@@ -1,10 +1,5 @@
-# Behaviorial Cloning Project
-
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-
----
-## The Project
----
+# Abstract
 The goals / steps of this project are the following:
 * Use the [simulator](https://github.com/udacity/self-driving-car-sim) to collect data of good driving behavior
 * Build, a convolution neural network in Keras that predicts steering angles from images
@@ -28,7 +23,7 @@ The goals / steps of this project are the following:
 [imageNvidiaNet]: ./images/NvidiaNet.png "NvidiaNet"
 
 
-## Overview of Files
+# Overview of Files
 
 My project includes the following files:
 * [README.md](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/README.md) (this writeup report) summarizing the results 
@@ -45,7 +40,7 @@ python drive.py model.h5
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-## Model Architecture 
+# Model Architecture 
 The overall strategy for deriving a model architecture was to start with a very simple architecture in order to first setup a working end-to-end framework and to check all functionality (training, driving, simulator, video playbacks) and detect potential technical problems.
 
 Then I replaced the simple network by the  [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
@@ -86,7 +81,7 @@ Training data was chosen to keep the vehicle driving on the road. I used a combi
 
 For details about how I created the training data, see the next section. 
 
-## Model Training Documentation
+# Model Training Documentation
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
