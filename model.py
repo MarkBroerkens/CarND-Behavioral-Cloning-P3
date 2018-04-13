@@ -2,14 +2,10 @@ import csv
 import cv2
 import numpy as np
 
-from keras.models import Sequential
-from keras.layers import Lambda, Cropping2D
-
 from nvidianet import NvidiaNet
 
 # Configuration of cropping dimensions
-CROP_TOP = 60
-CROP_BOTTOM = 25
+
 
 CORRECTION = 0.2
 
@@ -63,10 +59,8 @@ def main():
 
     X_train = np.array(images)
     y_train = np.array(measurements)
-    model = Sequential()
-    model.add(Cropping2D(cropping=((CROP_TOP,CROP_BOTTOM), (0,0)), input_shape=(160,320,3)))
-    model.add(Lambda(lambda x: (x / 255.0) - 0.5))
-    model = NvidiaNet(model)
+
+    model = NvidiaNet()
     model.compile(loss='mse', optimizer='adam')
     model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=EPOCHS)
     model.save('model.h5')
@@ -79,6 +73,11 @@ def process_image(source_path):
     image = cv2.imread(current_path)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return image
+
+#TODO: add generator
+#TODO: simplify creation of additional images
+
+
 
 if __name__ == '__main__':
     main()
