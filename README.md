@@ -33,11 +33,12 @@ The goals / steps of this project are the following:
 ### Files Submitted & Code Quality
 
 My project includes the following files:
-* [README.md](README.md) (this writeup report) summarizing the results 
-* [model.py](model.py) containing the script to create and train the model
-* [drive.py](drive.py) for driving the car in autonomous mode
-* [model.h5](model.h5) containing a trained convolution neural network 
-* [video.mp4](video.mp4) shows the simulator in autonomous mode using the trained convolutional network
+* [README.md](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/README.md) (this writeup report) summarizing the results 
+* [model.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.py) containing the script to train the model
+* [nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) containing the script to create the model
+* [drive.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/drive.py) for driving the car in autonomous mode
+* [model.h5](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.h5) containing a trained convolution neural network 
+* [video.mp4](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/video.mp4) shows the simulator in autonomous mode using the trained convolutional network
 
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
@@ -53,10 +54,11 @@ My model is based on the [convolution model from Nvidia](http://images.nvidia.co
 
 My adaptation of the Nvidia network consists of
 The network consists of 11 layers, including 
-* 1 cropping layer (nvidianet.py line 15)
-* 1 normalization layer (nvidianet.py line 18)
-* 5 convolutional layers and (nvidianet.py lines 21-25)
-* 4 fully connected layers with dropouts (nvidianet.py lines 31-37)
+* 1 cropping layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 15)
+* 1 normalization layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 18)
+* 5 convolutional layers and ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) lines 21-25)
+* 4 fully connected layers with dropouts ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) lines 31-37)
+
 The input image is split into RGB planes and passed to the network.
 
 The first layer of the network crops the images and removes the bottom and top parts that do not contribute to the calculation of the steering angle (bottom part contains the hood of the car and the top part captures trees and hills and sky). The normalizer is hard-coded and is not adjusted in the learning process. Performing normalization in the network allows the normalization scheme to be altered with the network architecture and to be accelerated via GPU processing.
