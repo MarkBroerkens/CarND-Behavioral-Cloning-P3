@@ -47,13 +47,27 @@ python drive.py model.h5
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-### Model Architecture and Training Strategy
-My model is based on the [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
+### Model Architecture
+The overall strategy for deriving a model architecture was to start with a very simple architecture in order to first setup a working end-to-end framework and to check all functionality (training, driving, simulator, video playbacks) and detect potential technical problems.
+
+Then I replaced the simple network by the  [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
 
 ![Architecture of Conv Net by Nvidia][imageNvidiaNet]
 
-My adaptation of the Nvidia network consists of
-The network consists of 11 layers, including 
+
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+
+To combat the overfitting, I added dropout layers into model.
+
+Then I added a cropping layer in order to support focusing on the relevant parts of the images.
+
+The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. It turned out that the cv2 lib is reading images in BGR format, and the drive.py providing images in RGB. Thus I added the conversion from BGR to RGB after loading the images.
+
+At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+
+My model is based on the [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
+
+My final network consists of 11 layers, including 
 * 1 cropping layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 15)
 * 1 normalization layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 18)
 * 5 convolutional layers and ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) lines 21-25)
@@ -67,42 +81,15 @@ After that fully connected layers leading to an output the steering angle.
 
 The model contains dropout layers in order to reduce overfitting. 
 
---- TODO
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (TODO code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (TODO model.py line 25).
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
 
 For details about how I created the training data, see the next section. 
 
-### Model Architecture and Training Documentation
-
-#### 1. Solution Design Approach
-
-The overall strategy for deriving a model architecture was to start with a very simple architecture in order to first setup a working end-to-end framework and to check all functionality (training, driving, simulator, video playbacks) and detect potential technical problems.
-
-Then I replaced the somple network by the Nvidia network that was recommended in the class. 
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I added dropout layers into model.
-
-Then I added a cropping layer in order to support focusing on the relevant parts of the images.
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. It turned out that the cv2 lib is reading images in BGR format, and the drive.py providing images in RGB. Thus I added the conversion from BGR to RGB after loading the images.
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
-
-#### 2. Final Model Architecture
-
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
-#### 3. Creation of the Training Set & Training Process
+### Model  Training Documentation
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
