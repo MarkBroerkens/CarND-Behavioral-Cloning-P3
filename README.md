@@ -10,7 +10,8 @@ The goals / steps of this project are the following:
 * Build, a convolution neural network in Keras that predicts steering angles from images
 * Train and validate the model with a training and validation set
 * Test that the model successfully drives around track one without leaving the road
-* Summarize the results with a written report
+* Summarize the results with a written report (see [rubric points](https://review.udacity.com/#!/rubrics/432/view) )
+
 
 [//]: # (Image References)
 
@@ -26,11 +27,8 @@ The goals / steps of this project are the following:
 [imageRightFlipped]: ./images/right_2018_04_13_11_07_08_656_flipped.jpg "Right Camera Flipped"
 [imageNvidiaNet]: ./images/NvidiaNet.png "NvidiaNet"
 
-## Rubric Points
-### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
----
-### Files Submitted & Code Quality
+## Overview of Files
 
 My project includes the following files:
 * [README.md](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/README.md) (this writeup report) summarizing the results 
@@ -47,13 +45,12 @@ python drive.py model.h5
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-### Model Architecture
+## Model Architecture 
 The overall strategy for deriving a model architecture was to start with a very simple architecture in order to first setup a working end-to-end framework and to check all functionality (training, driving, simulator, video playbacks) and detect potential technical problems.
 
 Then I replaced the simple network by the  [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
 
 ![Architecture of Conv Net by Nvidia][imageNvidiaNet]
-
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
@@ -89,7 +86,7 @@ Training data was chosen to keep the vehicle driving on the road. I used a combi
 
 For details about how I created the training data, see the next section. 
 
-### Model  Training Documentation
+## Model Training Documentation
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
