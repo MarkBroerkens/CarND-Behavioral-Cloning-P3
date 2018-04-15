@@ -115,6 +115,7 @@ Examples of flipped center images
 ![alt text][imageCenterFlipped]
 
 Examples of flipped right and left images
+
 ![alt text][imageLeft]
 ![alt text][imageLeftFlipped]
 ![alt text][imageRight]
