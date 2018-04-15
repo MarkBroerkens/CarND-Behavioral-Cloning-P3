@@ -121,7 +121,7 @@ Examples of flipped right and left images
 ![alt text][imageRight]
 ![alt text][imageRightFlipped]
 
-After the collection process, I had 10.308 number of images.
+After the collection process, I had 10.308 images and steering angles.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
