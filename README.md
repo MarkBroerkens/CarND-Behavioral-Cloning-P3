@@ -1,9 +1,6 @@
-# Behaviorial Cloning Project
+![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-
----
-## The Project
+# The Project
 ---
 The goals / steps of this project are the following:
 * Use the [Udacity Simulator](https://github.com/udacity/self-driving-car-sim) to collect data of good driving behavior
@@ -28,7 +25,7 @@ The goals / steps of this project are the following:
 [imageNvidiaNet]: ./images/NvidiaNet.png "NvidiaNet"
 
 
-## Overview of Files
+# Overview of Files
 
 My project includes the following files:
 * [README.md](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/README.md) (writeup report) documentation of the results 
@@ -45,8 +42,8 @@ python drive.py model.h5
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-## Model Architecture 
-### Development of the Model
+# Model Architecture 
+## Development of the Model
 The overall strategy for deriving a model architecture was to start with a very simple architecture in order to first setup a working end-to-end framework and to check all functionality (training, driving, simulator, video creation) and detect potential technical problems.
 
 Then I replaced the simple network by the  [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
@@ -63,7 +60,7 @@ The final step was to run the simulator to see how well the car was driving arou
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road [video.mp4](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/video.mp4).
 
-### Final Network Model
+## Final Network Model
 My final network consists of 11 layers, including 
 * 1 cropping layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 15)
 * 1 normalization layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 18)
@@ -78,7 +75,7 @@ After that fully connected layers leading to an output the steering angle.
 
 The model contains dropout layers in order to reduce overfitting. 
 
-### Training the Model
+## Model Training
 The model was trained and validated on two laps of route 1. 
 
 In order to allow huge amount of training data a data generator is used ([model.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.py) line 63-97)
@@ -91,7 +88,7 @@ Training data was chosen to keep the vehicle driving on the road. I used a combi
 
 For details about how I created the training data, see the next section. 
 
-## Model Training Documentation
+# Training Data Documentation
 
 To capture good driving behavior, I first recorded a bit more than one lap on track one using center lane driving. Here is an example image of center lane driving:
 
@@ -123,7 +120,7 @@ Examples of flipped right and left images
 ![alt text][imageRight]
 ![alt text][imageRightFlipped]
 
-After the collection process, I had TODO number of data points.
+After the collection process, I had 10.308 number of images.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
