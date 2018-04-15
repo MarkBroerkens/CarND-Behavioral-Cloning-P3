@@ -1,7 +1,7 @@
 ![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 # The Project
----
+
 The goals / steps of this project are the following:
 * Use the [Udacity Simulator](https://github.com/udacity/self-driving-car-sim) to collect data of good driving behavior
 * Build, a convolution neural network in Keras that predicts steering angles from images
