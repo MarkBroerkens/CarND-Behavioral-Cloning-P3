@@ -6,11 +6,11 @@
 ## The Project
 ---
 The goals / steps of this project are the following:
-* Use the [simulator](https://github.com/udacity/self-driving-car-sim) to collect data of good driving behavior
+* Use the [Udacity Simulator](https://github.com/udacity/self-driving-car-sim) to collect data of good driving behavior
 * Build, a convolution neural network in Keras that predicts steering angles from images
 * Train and validate the model with a training and validation set
 * Test that the model successfully drives around track one without leaving the road
-* Summarize the results with a written report (see [rubric points](https://review.udacity.com/#!/rubrics/432/view) )
+* Summarize the results with a written report according to the [rubric points](https://review.udacity.com/#!/rubrics/432/view) 
 
 
 [//]: # (Image References)
@@ -31,11 +31,11 @@ The goals / steps of this project are the following:
 ## Overview of Files
 
 My project includes the following files:
-* [README.md](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/README.md) (this writeup report) summarizing the results 
+* [README.md](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/README.md) (writeup report) documentation of the results 
 * [model.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.py) containing the script to train the model
 * [nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) containing the script to create the model
 * [drive.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/drive.py) for driving the car in autonomous mode
-* [model.h5](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.h5) containing a trained convolution neural network 
+* [model.h5](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.h5) contains a trained convolution neural network 
 * [video.mp4](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/video.mp4) shows the simulator in autonomous mode using the trained convolutional network
 
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -46,7 +46,8 @@ python drive.py model.h5
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
 ## Model Architecture 
-The overall strategy for deriving a model architecture was to start with a very simple architecture in order to first setup a working end-to-end framework and to check all functionality (training, driving, simulator, video playbacks) and detect potential technical problems.
+### Development of the Model
+The overall strategy for deriving a model architecture was to start with a very simple architecture in order to first setup a working end-to-end framework and to check all functionality (training, driving, simulator, video creation) and detect potential technical problems.
 
 Then I replaced the simple network by the  [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
 
@@ -54,16 +55,15 @@ Then I replaced the simple network by the  [convolution model from Nvidia](http:
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
-To combat the overfitting, I added dropout layers into model.
+To combat the overfitting, I added dropout layers into model and added more training data.
 
 Then I added a cropping layer in order to support focusing on the relevant parts of the images.
 
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track. It turned out that the cv2 lib is reading images in BGR format, and the drive.py providing images in RGB. Thus I added the conversion from BGR to RGB after loading the images.
 
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road [video.mp4](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/video.mp4).
 
-My model is based on the [convolution model from Nvidia](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) that was introduced in the class. The original Nvidia Net is described in the following image.
-
+### Final Network Model
 My final network consists of 11 layers, including 
 * 1 cropping layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 15)
 * 1 normalization layer ([nvidianet.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/nvidianet.py) line 18)
@@ -78,47 +78,53 @@ After that fully connected layers leading to an output the steering angle.
 
 The model contains dropout layers in order to reduce overfitting. 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (TODO code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+### Training the Model
+The model was trained and validated on two laps of route 1. 
 
-The model used an adam optimizer, so the learning rate was not tuned manually (TODO model.py line 25).
+In order to allow huge amount of training data a data generator is used ([model.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.py) line 63-97)
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+
+The model used an adam optimizer, so the learning rate was not tuned manually ([model.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.py) line 51-52).
+
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road.
 
 For details about how I created the training data, see the next section. 
 
 ## Model Training Documentation
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+To capture good driving behavior, I first recorded a bit more than one lap on track one using center lane driving. Here is an example image of center lane driving:
 
 ![alt text][imageLeftTurn]
 ![alt text][imageSandRight]
 ![alt text][imageLaneLines]
 ![alt text][imageBridge]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+Note: I got best results of training data when I controlled the simulator using my mouse.
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to get back to the center.
 
-In order to avoid left turn bias I added flipped images and angles to the data set. For example, here is an image that has then been flipped:
+For each data point that was recorded by the simulator the following six images and steering angles are extracted ([model.py](https://github.com/MarkBroerkens/CarND-Behavioral-Cloning-P3/blob/master/model.py) line 104-137):
+* center_image with measured steering angle
+* fiipped center_image with negated steering angle (avoid bias to a specific direction)
+* left_image with measured steering angle + 0.2 (if the car is driving on the left, then it should return to the center)
+* flipped_left image with negated steering angle 
+* right_image with measured steering angle - 0.2 (if the car is driving on the right, then it should return to the center)
+* flipped right_image with negated steering angle 
+
+Examples of flipped center images
 
 ![alt text][imageCenter]
 ![alt text][imageCenterFlipped]
 
-Additionally, I used the images from the left and right cameras. For right camera I augmented the angle so that the car should drive more to the left and for the left camera I augmented the angle so that the car should drive more to the right.
+Examples of flipped right and left images
 ![alt text][imageLeft]
 ![alt text][imageLeftFlipped]
 ![alt text][imageRight]
 ![alt text][imageRightFlipped]
 
-Then I repeated this process on track two in order to get more data points.
+After the collection process, I had TODO number of data points.
 
-Etc ....
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 10. I used an adam optimizer so that manually training the learning rate wasn't necessary.

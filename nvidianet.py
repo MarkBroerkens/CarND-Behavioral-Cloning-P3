@@ -15,7 +15,7 @@ def NvidiaNet() :
     model.add(Cropping2D(cropping=((CROP_TOP,CROP_BOTTOM), (0,0)), input_shape=(160,320,3)))
     
     # normalization
-    model.add(Lambda(lambda x: (x / 255.0) - 0.5))
+    model.add(Lambda(lambda x: (x / 127.5) - 1))
     
     # convolutional layers
     model.add(Convolution2D(24,5,5,subsample=(2,2),activation="relu"))
